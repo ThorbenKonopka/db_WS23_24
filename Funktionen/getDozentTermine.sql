@@ -1,6 +1,6 @@
 USE `Stundenplan`;
 
-DELIMITER $$;
+DELIMITER $$
 
 CREATE DEFINER=`root`@`localhost` FUNCTION `getDozentTermine`(dozentId INT, semester VARCHAR(50)) RETURNS varchar(1024) CHARSET utf8mb4
     READS SQL DATA
