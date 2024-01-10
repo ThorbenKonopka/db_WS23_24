@@ -1,3 +1,7 @@
+USE `Stundenplan`;
+
+DELIMITER $$
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `getAnwesenheitsliste`(pTerminId INT) RETURNS text CHARSET utf8mb4
     READS SQL DATA
 BEGIN
@@ -28,3 +32,6 @@ BEGIN
     CLOSE studentCursor;
 	RETURN liste;
 END
+$$
+
+DELIMITER ;

@@ -1,4 +1,4 @@
-USE Stundenplan;
+USE `Stundenplan`;
  INSERT INTO D_Typ (typ)
  VALUES ("Vorlesungen"),
         ("Praktika"),
@@ -38,13 +38,15 @@ VALUES (1, 1, "Datenbanken"),
 INSERT INTO D_Jahrgang (jahrgang) 
 VALUES ("23"),
        ("24"),
-       ("25");
+       ("25"),
+       ("22");
 
 INSERT INTO Student (matrikelnummer, name, vorname, jahrgang, gruppe) 
 VALUES (123456, "Blauschuh", "Bubi", "23", "A-F"),
        (234567, "Kleeblatt", "Katrin", "25", "G-L"),
        (345678, "Griesgram", "Grummel", "24", "G-L"),
-       (456789, "Königsmann", "Thomas", "23", "A-F");
+       (456789, "Königsmann", "Thomas", "23", "A-F"),
+       (314159, "Konopka", "Nils Thorben", "22", "G-L");
 
 INSERT INTO Veranstaltung (dozentId, typ, semester, modulId, jahrgang) 
 VALUES (1, "Vorlesungen", "WS2023/2024", 1, "23"),

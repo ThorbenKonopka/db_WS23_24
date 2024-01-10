@@ -1,0 +1,15 @@
+USE `Stundenplan`;
+
+DELIMITER $$
+
+CREATE FUNCTION getStartdate(jahrgang int(2)) RETURNS DATE
+DETERMINISTIC
+
+BEGIN
+    DECLARE datum DATE DEFAULT '2000-10-01';
+
+    RETURN ADDDATE(datum, INTERVAL (jahrgang - 1) YEAR);
+END
+$$
+
+DELIMITER ;
