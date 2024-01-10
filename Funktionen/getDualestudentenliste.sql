@@ -13,7 +13,7 @@ BEGIN
     DECLARE studentCursor CURSOR FOR
     SELECT CONCAT(student.name, ', ', student.vorname)
     FROM Student student
-    WHERE DATEDIFF(CURDATE(), getStartdate((student.jahrgang + 2))) >= 0;
+    WHERE DATEDIFF(CURDATE(), getStartdate((student.jahrgang + 2))) < 0;
     
     DECLARE CONTINUE HANDLER 
 		FOR SQLSTATE '02000' SET done =1;
