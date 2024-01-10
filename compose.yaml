@@ -1,0 +1,36 @@
+services:
+  db:
+    image: mysql:8.0-debian
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_USER: kalender
+      MYSQL_PASSWORD: /run/secrets/db_password
+      LANG: C.UTF-8
+    volumes:
+      - ./Modell/stundenplanCreate.sql:/docker-entrypoint-initdb.d/a.sql
+      - ./Funktionen/getAnwesenheitsliste.sql:/docker-entrypoint-initdb.d/b.sql
+      - ./Funktionen/getFehltage.sql:/docker-entrypoint-initdb.d/c.sql
+      - ./Funktionen/isUni.sql:/docker-entrypoint-initdb.d/d.sql
+      - ./Funktionen/getStartdateFromJahrgang.sql:/docker-entrypoint-initdb.d/e.sql
+      - ./Funktionen/getDualestudentenliste.sql:/docker-entrypoint-initdb.d/f.sql
+      - ./Funktionen/getNextTermin.sql:/docker-entrypoint-initdb.d/g.sql
+      - ./Funktionen/getDozentTermine.sql:/docker-entrypoint-initdb.d/h.sql
+      - ./Inserts/Stundenplan_Inserts.sql:/docker-entrypoint-initdb.d/i.sql
+    secrets:
+      - db_root_password
+      - db_password
+  dbv:
+    image: phpmyadmin:5.2.1
+    ports:
+      - '80:80'
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+    secrets:
+      - db_root_password
+secrets:
+  db_password:
+    file: ./DB/mysql/passwords/kalender.txt
+  db_root_password:
+    file: ./DB/mysql/passwords/root.txt
