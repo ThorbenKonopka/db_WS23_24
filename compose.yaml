@@ -5,8 +5,8 @@ services:
       - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
-      MYSQL_USER: kalender
-      MYSQL_PASSWORD: /run/secrets/db_password
+      MYSQL_USER: stundenplan
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
       LANG: C.UTF-8
     volumes:
       - ./Modell/stundenplanCreate.sql:/docker-entrypoint-initdb.d/a.sql
@@ -18,6 +18,8 @@ services:
       - ./Funktionen/getNextTermin.sql:/docker-entrypoint-initdb.d/g.sql
       - ./Funktionen/getDozentTermine.sql:/docker-entrypoint-initdb.d/h.sql
       - ./Inserts/Stundenplan_Inserts.sql:/docker-entrypoint-initdb.d/i.sql
+      - ./Rechte/stundenplanUser.sql:/docker-entrypoint-initdb.d/j.sql
+      - ./Rechte/viewerUser.sql:/docker-entrypoint-initdb.d/k.sql
     secrets:
       - db_root_password
       - db_password
@@ -31,6 +33,6 @@ services:
       - db_root_password
 secrets:
   db_password:
-    file: ./DB/mysql/passwords/kalender.txt
+    file: ./DB/mysql/passwords/stundenplan.txt
   db_root_password:
     file: ./DB/mysql/passwords/root.txt
