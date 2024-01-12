@@ -1,5 +1,5 @@
 USE `Stundenplan`;
-
+DROP function IF EXISTS `isUni()`;
 DELIMITER $$
 
 CREATE FUNCTION isUni(matrikelnr int,  tag DATE) RETURNS BOOLEAN
