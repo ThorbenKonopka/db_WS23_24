@@ -1,3 +1,7 @@
+USE `Stundenplan`;
+
+DELIMITER $$
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `getFehltage`(pMatrikelnummer INT) RETURNS text CHARSET utf8mb4
     READS SQL DATA
 BEGIN
@@ -22,3 +26,6 @@ BEGIN
 	CLOSE fehlCursor;
     RETURN fehltage;
 END
+$$
+
+DELIMITER ;
