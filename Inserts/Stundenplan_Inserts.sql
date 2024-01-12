@@ -79,5 +79,3 @@ INSERT INTO Historie (aenderungsart, aenderungsdatum, terminId, datum, beginn, e
 VALUES ("Verschiebung", "2023-09-30 12:00:00", 1, "2023-10-02", "08:00:00", "10:00:00"),
        ("Ausfall", "2024-04-01 12:00:00", 2, NULL, NULL, NULL),
        ("Vertretung", "2024-10-02 12:00:00", 3, "2024-10-03", "14:00:00", "16:00:00");
-
-  
