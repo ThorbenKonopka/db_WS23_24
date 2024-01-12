@@ -24,11 +24,11 @@ BEGIN
         FROM Termin
         JOIN Veranstaltung ON Termin.veranstaltungId = Veranstaltung.veranstaltungId
         JOIN Modul ON Veranstaltung.modulId = Modul.modulId
-        WHERE Modul.name = modulName AND Termin.`datum` >= CURRENT_DATE
+        JOIN BelegteVeranstaltung bv ON bv.`veranstaltungId` = Veranstaltung.veranstaltungId
+        WHERE Modul.name = modulName AND Termin.`datum` >= CURRENT_DATE AND studentId = bv.matrikelnummer
         ORDER BY Termin.`datum`, Termin.`beginn`
         LIMIT 1;
     END IF;
-
 
     RETURN nextTermin;
 END
