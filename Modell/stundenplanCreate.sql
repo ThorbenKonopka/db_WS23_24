@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`Veranstaltung` (
   `typ` VARCHAR(50) NOT NULL,
   `semester` VARCHAR(50) NOT NULL,
   `modulId` INT NOT NULL,
-  `jahrgang` VARCHAR(50) NOT NULL,
+  `jahrgang` INT NOT NULL,
   PRIMARY KEY (`veranstaltungId`),
   INDEX `fk_Veranstaltung_Dozent_idx` (`dozentId` ASC) VISIBLE,
   INDEX `fk_Veranstaltung_D_Typ1_idx` (`typ` ASC) VISIBLE,
@@ -124,19 +124,19 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`Student` (
   `matrikelnummer` INT NOT NULL,
   `name` VARCHAR(255) NULL,
   `vorname` VARCHAR(255) NULL,
-  `jahrgang` VARCHAR(50) NOT NULL,
   `gruppe` VARCHAR(50) NOT NULL,
+  `jahrgang` INT NOT NULL,
   PRIMARY KEY (`matrikelnummer`),
-  INDEX `fk_Student_D_Jahrgang1_idx` (`jahrgang` ASC) VISIBLE,
   INDEX `fk_Student_D_Gruppe1_idx` (`gruppe` ASC) VISIBLE,
-  CONSTRAINT `fk_Student_D_Jahrgang1`
-    FOREIGN KEY (`jahrgang`)
-    REFERENCES `Stundenplan`.`D_Jahrgang` (`jahrgang`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_Student_D_Jahrgang1_idx` (`jahrgang` ASC) VISIBLE,
   CONSTRAINT `fk_Student_D_Gruppe1`
     FOREIGN KEY (`gruppe`)
     REFERENCES `Stundenplan`.`D_Gruppe` (`gruppe`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Student_D_Jahrgang1`
+    FOREIGN KEY (`jahrgang`)
+    REFERENCES `Stundenplan`.`D_Jahrgang` (`jahrgang`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -302,4 +302,3 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-

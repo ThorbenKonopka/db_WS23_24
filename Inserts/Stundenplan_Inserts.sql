@@ -56,7 +56,8 @@ VALUES (1, "Vorlesungen", "WS2023/2024", 1, "23"),
 INSERT INTO Termin (datum, beginn, ende, veranstaltungId) 
 VALUES ("2023-10-01", "08:00:00", "10:00:00", 1),
        ("2024-04-02", "10:00:00", "12:00:00", 2),
-       ("2024-10-03", "14:00:00", "16:00:00", 3);
+       ("2024-10-03", "14:00:00", "16:00:00", 3),
+       ("2025-10-01", "08:00:00", "10:00:00", 1);
 
 INSERT INTO Anwesenheit (fehlgrund, matrikelnummer, terminId) 
 VALUES ("Krank", 123456, 1),
@@ -74,11 +75,9 @@ VALUES (1, "A-F"),
        (2, "G-L"),
        (3, "A-F");
 
-INSERT INTO Historie (aenderungsart, aenderungsdatum, terminId, datum, beginn, ende, status, veranstaltungId) 
-VALUES ("Verschiebung", "2023-09-30 12:00:00", 1, "2023-10-02", "08:00:00", "10:00:00", "Geplant", 1),
-       ("Ausfall", "2024-04-01 12:00:00", 2, NULL, NULL, NULL, "Abgesagt", 2),
-       ("Vertretung", "2024-10-02 12:00:00", 3, "2024-10-03", "14:00:00", "16:00:00", "Geändert", 3);
-       
-INSERT INTO Termin (datum, beginn, ende, veranstaltungId) 
-VALUES ("2025-10-01", "08:00:00", "10:00:00", 1);
+INSERT INTO Historie (aenderungsart, aenderungsdatum, terminId, datum, beginn, ende) 
+VALUES ("Verschiebung", "2023-09-30 12:00:00", 1, "2023-10-02", "08:00:00", "10:00:00"),
+       ("Ausfall", "2024-04-01 12:00:00", 2, NULL, NULL, NULL),
+       ("Vertretung", "2024-10-02 12:00:00", 3, "2024-10-03", "14:00:00", "16:00:00");
+
   
