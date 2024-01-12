@@ -59,7 +59,7 @@ ENGINE = InnoDB;
 -- Table `Stundenplan`.`D_Jahrgang`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Stundenplan`.`D_Jahrgang` (
-  `jahrgang` VARCHAR(50) NOT NULL,
+  `jahrgang` INT NOT NULL,
   PRIMARY KEY (`jahrgang`))
 ENGINE = InnoDB;
 
@@ -218,8 +218,6 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`Historie` (
   `datum` DATE NULL,
   `beginn` TIME NULL,
   `ende` TIME NULL,
-  `status` VARCHAR(50) NULL,
-  `veranstaltungId` INT NULL,
   PRIMARY KEY (`historieId`),
   INDEX `fk_Historie_D_Aenderungsart1_idx` (`aenderungsart` ASC) VISIBLE,
   INDEX `fk_Historie_Termin1_idx` (`terminId` ASC) VISIBLE,
@@ -279,6 +277,29 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`Termin2Gruppe` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `Stundenplan`.`vertretenderDozent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Stundenplan`.`vertretenderDozent` (
+  `dozentId` INT NOT NULL,
+  `terminId` INT NOT NULL,
+  PRIMARY KEY (`dozentId`, `terminId`),
+  INDEX `fk_Dozent_has_Termin_Termin1_idx` (`terminId` ASC) VISIBLE,
+  INDEX `fk_Dozent_has_Termin_Dozent1_idx` (`dozentId` ASC) VISIBLE,
+  CONSTRAINT `fk_Dozent_has_Termin_Dozent1`
+    FOREIGN KEY (`dozentId`)
+    REFERENCES `Stundenplan`.`Dozent` (`dozentId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Dozent_has_Termin_Termin1`
+    FOREIGN KEY (`terminId`)
+    REFERENCES `Stundenplan`.`Termin` (`terminId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
