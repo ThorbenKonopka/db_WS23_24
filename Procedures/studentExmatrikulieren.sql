@@ -1,3 +1,7 @@
+USE `Stundenplan`;
+
+DELIMITER $$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `studentExmatrikulieren`(IN matrikelnummer_param INT)
 BEGIN
 
@@ -14,3 +18,6 @@ BEGIN
     WHERE matrikelnummer = matrikelnummer_param;
     
 END
+$$
+
+DELIMITER ;

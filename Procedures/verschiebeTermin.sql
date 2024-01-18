@@ -1,12 +1,7 @@
 USE `Stundenplan`;
-DROP procedure IF EXISTS `verschiebeTermin`;
-
-USE `Stundenplan`;
 DROP procedure IF EXISTS `Stundenplan`.`verschiebeTermin`;
-;
 
 DELIMITER $$
-USE `Stundenplan`$$
 CREATE DEFINER=`root`@`%` PROCEDURE `verschiebeTermin`(
     IN p_terminId INT,
     IN p_neuesDatum DATE,
@@ -21,9 +16,8 @@ BEGIN
         beginn = p_neuerBeginn,
         ende = p_neuesEnde
     WHERE terminId = p_terminId;
-END$$
+END
+$$
 
 DELIMITER ;
-;
-
 

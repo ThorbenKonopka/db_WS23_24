@@ -1,12 +1,7 @@
 USE `Stundenplan`;
-DROP procedure IF EXISTS `trageVertretungEin`;
-
-USE `Stundenplan`;
 DROP procedure IF EXISTS `Stundenplan`.`trageVertretungEin`;
-;
 
 DELIMITER $$
-USE `Stundenplan`$$
 CREATE DEFINER=`root`@`%` PROCEDURE `trageVertretungEin`(
     IN p_terminId INT,
     IN p_dozentId INT
@@ -17,8 +12,8 @@ BEGIN
     VALUES (p_dozentId, p_terminId)
     ON DUPLICATE KEY UPDATE
     dozentId = p_dozentId;
-END$$
+END
+$$
 
 DELIMITER ;
-;
 
