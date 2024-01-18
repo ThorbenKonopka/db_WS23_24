@@ -17,9 +17,19 @@ services:
       - ./Funktionen/getDualestudentenliste.sql:/docker-entrypoint-initdb.d/f.sql
       - ./Funktionen/getNextTermin.sql:/docker-entrypoint-initdb.d/g.sql
       - ./Funktionen/getDozentTermine.sql:/docker-entrypoint-initdb.d/h.sql
-      - ./Inserts/Stundenplan_Inserts.sql:/docker-entrypoint-initdb.d/i.sql
-      - ./Rechte/stundenplanUser.sql:/docker-entrypoint-initdb.d/j.sql
-      - ./Rechte/viewerUser.sql:/docker-entrypoint-initdb.d/k.sql
+      - ./Procedures/erstelleHistorieneintrag.sql:/docker-entrypoint-initdb.d/i.sql
+      - ./Procedures/lasseTerminAusfallen.sql:/docker-entrypoint-initdb.d/j.sql
+      - ./Procedures/trageVertretungEin.sql:/docker-entrypoint-initdb.d/k.sql
+      - ./Procedures/verschiebeTermin.sql:/docker-entrypoint-initdb.d/l.sql
+      - ./Procedures/studentExmatrikulieren.sql:/docker-entrypoint-initdb.d/m.sql
+      - ./Procedures/trageAnwesenheitEin.sql:/docker-entrypoint-initdb.d/n.sql
+      - ./Inserts/Stundenplan_Inserts.sql:/docker-entrypoint-initdb.d/o.sql
+      - ./Views/DozentView.sql:/docker-entrypoint-initdb.d/p.sql
+      - ./Views/VerwaltungView.sql:/docker-entrypoint-initdb.d/q.sql
+      - ./Rechte/stundenplanUser.sql:/docker-entrypoint-initdb.d/r.sql
+      - ./Rechte/viewerUser.sql:/docker-entrypoint-initdb.d/s.sql
+      - ./Rechte/dozentUser.sql:/docker-entrypoint-initdb.d/t.sql
+      - ./Rechte/verwalterUser.sql:/docker-entrypoint-initdb.d/u.sql
     secrets:
       - db_root_password
       - db_password
