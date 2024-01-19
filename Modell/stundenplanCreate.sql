@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`Modul` (
   `anwesenheitspflichtig` TINYINT NULL,
   `inSemester` INT NULL,
   `name` VARCHAR(45) NULL,
+  `pflichtveranstaltung` TINYINT NOT NULL,
   PRIMARY KEY (`modulId`))
 ENGINE = InnoDB;
 
