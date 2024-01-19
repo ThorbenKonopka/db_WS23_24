@@ -284,7 +284,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `Stundenplan`.`vertretenderDozent` (
   `dozentId` INT NOT NULL,
   `terminId` INT NOT NULL,
-  PRIMARY KEY (`dozentId`, `terminId`),
+  PRIMARY KEY (`terminId`),
   INDEX `fk_Dozent_has_Termin_Termin1_idx` (`terminId` ASC) VISIBLE,
   INDEX `fk_Dozent_has_Termin_Dozent1_idx` (`dozentId` ASC) VISIBLE,
   CONSTRAINT `fk_Dozent_has_Termin_Dozent1`
@@ -303,3 +303,4 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
