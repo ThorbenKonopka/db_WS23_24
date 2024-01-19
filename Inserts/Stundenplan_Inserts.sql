@@ -30,10 +30,10 @@ VALUES ("WS2023/2024"),
        ("SS2024"),
        ("WS2024/2025");
 
-INSERT INTO Modul (anwesenheitspflichtig, inSemester, name) 
-VALUES (1, 1, "Datenbanken"),
-       (0, 5, "Irgendwas im berufsbegleitenden Teil"),
-       (1, 3, "Web-Engineering");
+INSERT INTO Modul (anwesenheitspflichtig, pflichtveranstaltung, inSemester, name) 
+VALUES (1, 1, 1, "Datenbanken"),
+       (0, 0, 5, "Irgendwas im berufsbegleitenden Teil"),
+       (1, 1, 3, "Web-Engineering");
        
 INSERT INTO D_Jahrgang (jahrgang) 
 VALUES ("23"),
