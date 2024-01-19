@@ -1,0 +1,2 @@
+CALL trageAnwesenheitEin(4, "123456,234567,345678,456789,314159");
+SELECT * FROM Anwesenheit;

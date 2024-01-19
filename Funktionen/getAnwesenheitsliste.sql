@@ -5,8 +5,9 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `getAnwesenheitsliste`(pTerminId INT) RETURNS text CHARSET utf8mb4
     READS SQL DATA
 BEGIN
-	DECLARE liste TEXT DEFAULT '';
+	DECLARE liste TEXT DEFAULT NULL;
     DECLARE done INT DEFAULT 0;
+    DECLARE zeiger INT DEFAULT 0;
     DECLARE tempStudentName VARCHAR(255);
     
     DECLARE studentCursor CURSOR FOR
@@ -23,15 +24,19 @@ BEGIN
         
 	OPEN studentCursor;
     WHILE done = 0 DO
-    FETCH studentCursor INTO tempStudentName;
-    IF done = 0 THEN
-		SET liste = CONCAT_WS('\n', liste, tempStudentName);
-	END IF;
+		FETCH studentCursor INTO tempStudentName;
+		IF done = 0 THEN
+			IF liste IS NULL THEN
+				SET liste = tempStudentName;
+			ELSE 
+				SET liste = CONCAT_WS('\n', liste, tempStudentName);
+			END IF;
+		END IF;
+		SET zeiger = zeiger+1;
 	END WHILE;
     
     CLOSE studentCursor;
 	RETURN liste;
 END
 $$
-
 DELIMITER ;

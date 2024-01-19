@@ -1,8 +1,8 @@
 USE `Stundenplan`;
-
+DROP function IF EXISTS `isUni()`;
 DELIMITER $$
 
-CREATE FUNCTION isUni(matrikelnummer int,  tag DATE) RETURNS BOOLEAN
+CREATE FUNCTION isUni(matrikelnr int,  tag DATE) RETURNS BOOLEAN
 READS SQL DATA
 
 BEGIN
@@ -16,7 +16,7 @@ BEGIN
     JOIN BelegteVeranstaltung bv ON bv.matrikelnummer = student.matrikelnummer
     JOIN Veranstaltung veranstaltung ON veranstaltung.veranstaltungId = bv.veranstaltungId
     JOIN Termin termin ON termin.veranstaltungId = veranstaltung.veranstaltungId
-    WHERE student.matrikelnummer = matrikelnummer AND termin.datum LIKE tag;
+    WHERE student.matrikelnummer = matrikelnr AND termin.datum LIKE tag;
 
     IF anzahlVeranstaltungen > 0 THEN
         SET erg = 1;

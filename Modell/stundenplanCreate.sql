@@ -59,7 +59,7 @@ ENGINE = InnoDB;
 -- Table `Stundenplan`.`D_Jahrgang`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Stundenplan`.`D_Jahrgang` (
-  `jahrgang` VARCHAR(50) NOT NULL,
+  `jahrgang` INT NOT NULL,
   PRIMARY KEY (`jahrgang`))
 ENGINE = InnoDB;
 
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`Veranstaltung` (
   `typ` VARCHAR(50) NOT NULL,
   `semester` VARCHAR(50) NOT NULL,
   `modulId` INT NOT NULL,
-  `jahrgang` VARCHAR(50) NOT NULL,
+  `jahrgang` INT NOT NULL,
   PRIMARY KEY (`veranstaltungId`),
   INDEX `fk_Veranstaltung_Dozent_idx` (`dozentId` ASC) VISIBLE,
   INDEX `fk_Veranstaltung_D_Typ1_idx` (`typ` ASC) VISIBLE,
@@ -124,19 +124,19 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`Student` (
   `matrikelnummer` INT NOT NULL,
   `name` VARCHAR(255) NULL,
   `vorname` VARCHAR(255) NULL,
-  `jahrgang` VARCHAR(50) NOT NULL,
   `gruppe` VARCHAR(50) NOT NULL,
+  `jahrgang` INT NOT NULL,
   PRIMARY KEY (`matrikelnummer`),
-  INDEX `fk_Student_D_Jahrgang1_idx` (`jahrgang` ASC) VISIBLE,
   INDEX `fk_Student_D_Gruppe1_idx` (`gruppe` ASC) VISIBLE,
-  CONSTRAINT `fk_Student_D_Jahrgang1`
-    FOREIGN KEY (`jahrgang`)
-    REFERENCES `Stundenplan`.`D_Jahrgang` (`jahrgang`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_Student_D_Jahrgang1_idx` (`jahrgang` ASC) VISIBLE,
   CONSTRAINT `fk_Student_D_Gruppe1`
     FOREIGN KEY (`gruppe`)
     REFERENCES `Stundenplan`.`D_Gruppe` (`gruppe`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Student_D_Jahrgang1`
+    FOREIGN KEY (`jahrgang`)
+    REFERENCES `Stundenplan`.`D_Jahrgang` (`jahrgang`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -218,8 +218,6 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`Historie` (
   `datum` DATE NULL,
   `beginn` TIME NULL,
   `ende` TIME NULL,
-  `status` VARCHAR(50) NULL,
-  `veranstaltungId` INT NULL,
   PRIMARY KEY (`historieId`),
   INDEX `fk_Historie_D_Aenderungsart1_idx` (`aenderungsart` ASC) VISIBLE,
   INDEX `fk_Historie_Termin1_idx` (`terminId` ASC) VISIBLE,
@@ -274,6 +272,28 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`Termin2Gruppe` (
   CONSTRAINT `fk_Termin_has_D_Gruppe_D_Gruppe1`
     FOREIGN KEY (`gruppe`)
     REFERENCES `Stundenplan`.`D_Gruppe` (`gruppe`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Stundenplan`.`vertretenderDozent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Stundenplan`.`vertretenderDozent` (
+  `dozentId` INT NOT NULL,
+  `terminId` INT NOT NULL,
+  PRIMARY KEY (`dozentId`, `terminId`),
+  INDEX `fk_Dozent_has_Termin_Termin1_idx` (`terminId` ASC) VISIBLE,
+  INDEX `fk_Dozent_has_Termin_Dozent1_idx` (`dozentId` ASC) VISIBLE,
+  CONSTRAINT `fk_Dozent_has_Termin_Dozent1`
+    FOREIGN KEY (`dozentId`)
+    REFERENCES `Stundenplan`.`Dozent` (`dozentId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Dozent_has_Termin_Termin1`
+    FOREIGN KEY (`terminId`)
+    REFERENCES `Stundenplan`.`Termin` (`terminId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
