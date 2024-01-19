@@ -1,8 +1,15 @@
-CREATE DEFINER=`root`@`localhost` TRIGGER `beforeUpdateAnwesenheit` BEFORE UPDATE ON `anwesenheit` FOR EACH ROW BEGIN
+USE `Stundenplan`;
+
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `beforeUpdateAnwesenheit` BEFORE UPDATE ON `Anwesenheit` FOR EACH ROW BEGIN
     INSERT INTO `AnwesenheitProtokoll` (
-        `fehlgrundVorher`, `matrikelnummerVorher`, `terminIdVorher`
+        `fehlgrundVorher`, `Anwesenheit_terminId`, `Anwesenheit_matrikelnummer`
     )
     VALUES (
-        OLD.fehlgrund, OLD.matrikelnummer, OLD.terminId
+        OLD.fehlgrund, OLD.terminId, OLD.matrikelnummer
     );
 END
+$$
+
+DELIMITER ;
