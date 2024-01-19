@@ -176,24 +176,25 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Stundenplan`.`Anwesenheit` (
   `fehlgrund` VARCHAR(50) NULL,
-  `matrikelnummer` INT NOT NULL,
   `terminId` INT NOT NULL,
+  `matrikelnummer` INT NOT NULL,
   INDEX `fk_Anwesenheit_D_Fehlgrund1_idx` (`fehlgrund` ASC) VISIBLE,
-  INDEX `fk_Anwesenheit_Student1_idx` (`matrikelnummer` ASC) VISIBLE,
   INDEX `fk_Anwesenheit_Termin1_idx` (`terminId` ASC) VISIBLE,
+  PRIMARY KEY (`terminId`, `matrikelnummer`),
+  INDEX `fk_Anwesenheit_Student1_idx` (`matrikelnummer` ASC) VISIBLE,
   CONSTRAINT `fk_Anwesenheit_D_Fehlgrund1`
     FOREIGN KEY (`fehlgrund`)
     REFERENCES `Stundenplan`.`D_Fehlgrund` (`fehlgrund`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Anwesenheit_Student1`
-    FOREIGN KEY (`matrikelnummer`)
-    REFERENCES `Stundenplan`.`Student` (`matrikelnummer`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Anwesenheit_Termin1`
     FOREIGN KEY (`terminId`)
     REFERENCES `Stundenplan`.`Termin` (`terminId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Anwesenheit_Student1`
+    FOREIGN KEY (`matrikelnummer`)
+    REFERENCES `Stundenplan`.`Student` (`matrikelnummer`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -300,7 +301,25 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`vertretenderDozent` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `Stundenplan`.`AnwesenheitProtokoll`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Stundenplan`.`AnwesenheitProtokoll` (
+  `protokollId` INT NOT NULL AUTO_INCREMENT,
+  `fehlgrundVorher` VARCHAR(50) NULL,
+  `aenderungsdatum` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `Anwesenheit_terminId` INT NOT NULL,
+  `Anwesenheit_matrikelnummer` INT NOT NULL,
+  PRIMARY KEY (`protokollId`),
+  INDEX `fk_AnwesenheitProtokoll_Anwesenheit1_idx` (`Anwesenheit_terminId` ASC, `Anwesenheit_matrikelnummer` ASC) VISIBLE,
+  CONSTRAINT `fk_AnwesenheitProtokoll_Anwesenheit1`
+    FOREIGN KEY (`Anwesenheit_terminId`)
+    REFERENCES `Stundenplan`.`Anwesenheit` (`terminId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
