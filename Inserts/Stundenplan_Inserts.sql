@@ -51,7 +51,8 @@ VALUES (123456, "Blauschuh", "Bubi", "23", "A-F"),
 INSERT INTO Veranstaltung (dozentId, typ, semester, modulId, jahrgang) 
 VALUES (1, "Vorlesungen", "WS2023/2024", 1, "23"),
        (2, "Praktika", "SS2024", 2, "24"),
-       (3, "Übungen", "WS2024/2025", 3, "25");
+       (3, "Übungen", "WS2024/2025", 3, "25"),
+       (1, "Übungen", "WS2023/2024", 1, "23");
 
 INSERT INTO Termin (datum, beginn, ende, veranstaltungId) 
 VALUES ("2023-10-01", "08:00:00", "10:00:00", 1),
@@ -68,7 +69,8 @@ INSERT INTO BelegteVeranstaltung (veranstaltungId, matrikelnummer)
 VALUES (1, 123456),
        (2, 234567),
        (3, 345678),
-       (1, 456789);
+       (1, 456789),
+       (4, 456789);
        
 INSERT INTO Termin2Gruppe (terminId, gruppe) 
 VALUES (1, "A-F"),
