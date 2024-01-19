@@ -1,5 +1,7 @@
 package de.stundenplan;
 
+import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,6 +13,8 @@ public class Main {
 
 
     public static void main(String[] args) throws SQLException {
+        MysqlConnectionPoolDataSource t = new MysqlConnectionPoolDataSource();
+
         // Treiber wird automatisch initialisiert
         DriverManager.setLogWriter(new PrintWriter(System.out));
         try (Connection con = DriverManager.getConnection(URL, "stundenplan", getPasswordForStundenplanUser())) {
