@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `Stundenplan`.`Modul` (
   `modulId` INT NOT NULL AUTO_INCREMENT,
   `anwesenheitspflichtig` TINYINT NULL,
   `inSemester` INT NULL,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(255) NULL,
   `pflichtveranstaltung` TINYINT NOT NULL,
   PRIMARY KEY (`modulId`))
 ENGINE = InnoDB;
