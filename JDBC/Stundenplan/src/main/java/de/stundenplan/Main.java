@@ -2,6 +2,7 @@ package de.stundenplan;
 
 import de.stundenplan.tests.Testcase;
 import de.stundenplan.tests.inserts.Insert1;
+import de.stundenplan.tests.testcases.ProcedureStudentExmatrikulieren;
 import de.stundenplan.tests.testcases.SelectFromStudent;
 
 import java.io.PrintWriter;
@@ -17,6 +18,8 @@ public class Main {
         // Treiber wird automatisch initialisiert
         DriverManager.setLogWriter(new PrintWriter(System.out));
 
+        ConnectionPool.init();
+
         List<Testcase> inserts = new ArrayList<>();
         inserts.add(new Insert1());
 
@@ -25,6 +28,7 @@ public class Main {
 
         List<Testcase> testcases = new ArrayList<>();
         testcases.add(new SelectFromStudent());
+        testcases.add(new ProcedureStudentExmatrikulieren());
 
         testcases.forEach(Testcase::executeTest);
 
