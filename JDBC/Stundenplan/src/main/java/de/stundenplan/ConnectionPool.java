@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 
 public class ConnectionPool {
@@ -151,11 +152,32 @@ public class ConnectionPool {
         }
     }
 
+    private void initAllConnections() {
+        dozentConnections.forEach(this::initConnection);
+        verwalterConnections.forEach(this::initConnection);
+        rootConnections.forEach(this::initConnection);
+    }
+
+    private void initConnection(Connection connection) {
+        try(Statement statement = connection.createStatement()) {
+            connection.setReadOnly(false);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static ConnectionPool getConnectionPool() {
         if(connectionPool == null) {
             connectionPool = new ConnectionPool();
         }
         return connectionPool;
+    }
+
+    public static void init() {
+        if(connectionPool == null) {
+            connectionPool = new ConnectionPool();
+        }
+        connectionPool.initAllConnections();
     }
 
     public static void destroy() {
