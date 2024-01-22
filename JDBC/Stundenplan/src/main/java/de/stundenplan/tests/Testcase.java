@@ -6,9 +6,9 @@ public abstract class Testcase {
     public abstract String getName();
     public void executeTest() {
         System.out.println("Test " + getName() + " Startet...");
+        init();
         long before = System.currentTimeMillis();
         try {
-            init();
             test();
         } catch (SQLException e) {
             System.out.println("Es ist ein Fehler aufgetreten, ;D");

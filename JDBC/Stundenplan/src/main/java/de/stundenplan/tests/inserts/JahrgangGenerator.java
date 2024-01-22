@@ -17,24 +17,23 @@ public class JahrgangGenerator extends Testcase{
     @Override
     public void test() throws SQLException {
         Connection con = ConnectionPool.getConnectionPool().getRootConnection();
-        int jahre = 50;
-        int startjahr = 2025;
+        int jahre = 6;
+        int startjahr = 2019;
 
-        try {
-            for (int i = 0; i < jahre; i++) {
-                int jahrgang = startjahr + i;
+        for (int i = 0; i < jahre; i++) {
+            int jahrgang = startjahr + i;
 
-                String sql = "INSERT INTO D_Jahrgang (jahrgang) VALUES (?)";
-                PreparedStatement statement = con.prepareStatement(sql);
+            String sql = "INSERT INTO D_Jahrgang (jahrgang) VALUES (?)";
+            try(PreparedStatement statement = con.prepareStatement(sql)) {
 
                 statement.setInt(1, jahrgang);
-                statement.executeUpdate();
+                try {
+                    statement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println("DOPPELT: " + jahrgang);
+                }
             }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        // Con nicht schließen
-        System.out.println("Jahrgänge erzeugt");
-    }
+        }
+
     }
 }

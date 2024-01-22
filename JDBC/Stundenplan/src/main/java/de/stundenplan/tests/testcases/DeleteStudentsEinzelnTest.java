@@ -7,13 +7,23 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ProcedureStudentExmatrikulieren extends Testcase {
+public class DeleteStudentsEinzelnTest extends Testcase {
     @Override
     public String getName() {
-        return "Procedure StudentExmatrikulieren";
+        return "Studenten löschen Einzeln";
     }
 
     @Override
+    public void test() throws SQLException {
+        Connection connection = ConnectionPool.getConnectionPool().getRootConnection();
+        try (Statement statement = connection.createStatement()) {
+            for(int i = 100100; i < 100200; i++) {
+                statement.executeUpdate("DELETE FROM BelegteVeranstaltung WHERE matrikelnummer = " + i + ";");
+                statement.executeUpdate("DELETE FROM Student WHERE matrikelnummer = " + i + ";");
+            }
+        }
+    }
+
     public void init() {
         Connection connection = ConnectionPool.getConnectionPool().getRootConnection();
         StringBuilder sb = new StringBuilder("INSERT INTO Student (matrikelnummer, name, vorname, jahrgang, gruppe) \n");
@@ -29,17 +39,6 @@ public class ProcedureStudentExmatrikulieren extends Testcase {
             statement.execute(sb.toString());
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void test() throws SQLException {
-        Connection connection = ConnectionPool.getConnectionPool().getVerwalterConnection();
-
-        try (Statement statement = connection.createStatement()) {
-            for(int i = 100100; i < 100200; i++) {
-                statement.execute("CALL studentExmatrikulieren(" + i + ");");
-            }
         }
     }
 }

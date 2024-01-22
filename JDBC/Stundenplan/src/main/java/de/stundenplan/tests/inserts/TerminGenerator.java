@@ -17,25 +17,30 @@ public class TerminGenerator extends Testcase {
     @Override
     public void test() throws SQLException {
         Connection con = ConnectionPool.getConnectionPool().getRootConnection();
-        try {
-            String countSql = "SELECT COUNT(*) AS anzahl FROM Veranstaltung";
-            PreparedStatement countStmt = con.prepareStatement(countSql);
-            ResultSet countRs = countStmt.executeQuery();
-            int anzahlVeranstaltungen = 0;
+
+        String countSql = "SELECT COUNT(*) AS anzahl FROM Veranstaltung";
+        ResultSet countRs;
+
+        int anzahlVeranstaltungen;
+
+        try (PreparedStatement countStmt = con.prepareStatement(countSql)) {
+            countRs = countStmt.executeQuery();
+            anzahlVeranstaltungen = 0;
 
             if (countRs.next()) {
                 anzahlVeranstaltungen = countRs.getInt("anzahl");
             }
+        }
 
 
-            LocalDate datum = LocalDate.of(2025, 9, 1);
-            LocalTime beginn = LocalTime.of(8, 0);
-            LocalTime ende = LocalTime.of(10, 0);
+        LocalDate datum = LocalDate.of(2025, 9, 1);
+        LocalTime beginn = LocalTime.of(8, 0);
+        LocalTime ende = LocalTime.of(10, 0);
 
-            for (int veranstaltungId = 1; veranstaltungId <= anzahlVeranstaltungen; veranstaltungId++) {
-                for (int i = 0; i < 10; i++) {
-                    String terminSql = "INSERT INTO Termin (datum, beginn, ende, veranstaltungId) VALUES (?, ?, ?, ?)";
-                    PreparedStatement terminStmt = con.prepareStatement(terminSql);
+        for (int veranstaltungId = 1; veranstaltungId <= anzahlVeranstaltungen; veranstaltungId++) {
+            for (int i = 0; i < 10; i++) {
+                String terminSql = "INSERT INTO Termin (datum, beginn, ende, veranstaltungId) VALUES (?, ?, ?, ?)";
+                try (PreparedStatement terminStmt = con.prepareStatement(terminSql)) {
 
                     terminStmt.setDate(1, Date.valueOf(datum.plus(i * 7, ChronoUnit.DAYS)));
                     terminStmt.setTime(2, Time.valueOf(beginn));
@@ -45,12 +50,8 @@ public class TerminGenerator extends Testcase {
                     terminStmt.executeUpdate();
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Con nicht schließen
-            System.out.println("Termin erzeugt");
         }
-        }
+
+    }
 }
 

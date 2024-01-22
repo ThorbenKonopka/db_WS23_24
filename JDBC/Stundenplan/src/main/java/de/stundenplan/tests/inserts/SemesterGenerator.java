@@ -16,29 +16,26 @@ public class SemesterGenerator extends Testcase {
     @Override
     public void test() throws SQLException {
         Connection con = ConnectionPool.getConnectionPool().getRootConnection();
-        int jahre = 50;
-        int startjahr = 2025;
-        try {
-            for (int i = 0; i < jahre; i++) {
-                int jahr = startjahr + i;
+        int jahre = 6;
+        int startjahr = 2019;
 
-                String ws = "WS" + jahr + "/" + (jahr + 1);
-                String ss = "SS" + (jahr + 1);
+        for (int i = 0; i < jahre; i++) {
+            int jahr = startjahr + i;
 
-                String sql = "INSERT INTO D_Semester (semester) VALUES (?)";
-                PreparedStatement statement = con.prepareStatement(sql);
+            String ws = "WS" + jahr + "/" + (jahr + 1);
+            String ss = "SS" + (jahr + 1);
+
+            String sql = "INSERT INTO D_Semester (semester) VALUES (?)";
+            try (PreparedStatement statement = con.prepareStatement(sql)) {
 
                 statement.setString(1, ws);
                 statement.executeUpdate();
 
                 statement.setString(1, ss);
                 statement.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println("DOPPELT " + ws + " ODER " + ss);
             }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        // Con nicht schließen
-            System.out.println("Semester erzeugt");
         }
     }
 }
