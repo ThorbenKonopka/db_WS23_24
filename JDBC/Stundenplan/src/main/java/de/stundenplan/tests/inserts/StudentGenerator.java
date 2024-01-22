@@ -17,37 +17,33 @@ public class StudentGenerator extends Testcase {
     @Override
     public void test() throws SQLException {
         Connection  con = ConnectionPool.getConnectionPool().getRootConnection();
-        int startjahr = 2025;
-        int jahre = 50;
-        int matrikelnummer =6;
-            try {
-                for (int i = 0; i < jahre; i++) {
-                    int jahrgang = startjahr + i;
+        int startjahr = 2019;
+        int jahre = 6;
+        int matrikelnummer = 6;
 
-                    for (int j = 0; j < 20; j++) {
-                        String vorname = "StudentVN" + matrikelnummer;
-                        String nachname = "StudentNN" + matrikelnummer;
-                        String gruppe = matrikelnummer % 2 == 0 ? "A-F" : "G-L";
+        for (int i = 0; i < jahre; i++) {
+            int jahrgang = startjahr + i;
 
-                        String sql = "INSERT INTO Student (matrikelnummer, name, vorname, jahrgang, gruppe) VALUES (?, ?, ?, ?, ?)";
-                        PreparedStatement statement = con.prepareStatement(sql);
+            for (int j = 0; j < 20; j++) {
+                String vorname = "StudentVN" + matrikelnummer;
+                String nachname = "StudentNN" + matrikelnummer;
+                String gruppe = matrikelnummer % 2 == 0 ? "A-F" : "G-L";
 
-                        statement.setInt(1, matrikelnummer);
-                        statement.setString(2, nachname);
-                        statement.setString(3, vorname);
-                        statement.setInt(4, jahrgang);
-                        statement.setString(5, gruppe);
+                String sql = "INSERT INTO Student (matrikelnummer, name, vorname, jahrgang, gruppe) VALUES (?, ?, ?, ?, ?)";
+                try (PreparedStatement statement = con.prepareStatement(sql)) {
 
-                        statement.executeUpdate();
+                    statement.setInt(1, matrikelnummer);
+                    statement.setString(2, nachname);
+                    statement.setString(3, vorname);
+                    statement.setInt(4, jahrgang);
+                    statement.setString(5, gruppe);
 
-                        matrikelnummer++;
-                    }
+                    statement.executeUpdate();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                // Con nicht schließen
-                System.out.println("Studenten erzeugt");
+
+                matrikelnummer++;
             }
         }
+
+    }
 }

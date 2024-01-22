@@ -1,9 +1,8 @@
 package de.stundenplan;
 
 import de.stundenplan.tests.Testcase;
-import de.stundenplan.tests.inserts.Insert1;
-import de.stundenplan.tests.testcases.ProcedureStudentExmatrikulieren;
-import de.stundenplan.tests.testcases.SelectFromStudent;
+import de.stundenplan.tests.inserts.*;
+import de.stundenplan.tests.testcases.*;
 
 import java.io.PrintWriter;
 import java.sql.*;
@@ -16,26 +15,35 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         // Treiber wird automatisch initialisiert
-        DriverManager.setLogWriter(new PrintWriter(System.out));
+        //DriverManager.setLogWriter(new PrintWriter(System.out));
 
         ConnectionPool.init();
 
         List<Testcase> inserts = new ArrayList<>();
         inserts.add(new Insert1());
+        inserts.add(new JahrgangGenerator());
+        inserts.add(new SemesterGenerator());
+        inserts.add(new VeranstaltungGenerator());
+        inserts.add(new StudentGenerator());
+        inserts.add(new TerminGenerator());
+        inserts.add(new Termin2GruppeGenerator());
+        inserts.add(new vertretenderDozentGenerator());
 
         inserts.forEach(Testcase::executeTest);
 
 
         List<Testcase> testcases = new ArrayList<>();
         testcases.add(new SelectFromStudent());
+
         testcases.add(new ProcedureStudentExmatrikulieren());
+        testcases.add(new DeleteStudentsEinzelnTest());
+        testcases.add(new DeleteStudentsZusammenTest());
+
+        testcases.add(new VeranstaltungZuStudentJoin());
+        testcases.add(new VeranstaltungZuStudentView());
 
         testcases.forEach(Testcase::executeTest);
 
         ConnectionPool.destroy();
-    }
-
-    public static String createSQL() {
-        return "SELECT * FROM Student;";
     }
 }
