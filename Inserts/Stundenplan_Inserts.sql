@@ -31,10 +31,59 @@ VALUES ("WS2023/2024"),
        ("WS2024/2025");
 
 INSERT INTO Modul (anwesenheitspflichtig, pflichtveranstaltung, inSemester, name) 
-VALUES (1, 1, 1, "Datenbanken"),
-       (0, 0, 5, "Irgendwas im berufsbegleitenden Teil"),
-       (1, 1, 3, "Web-Engineering");
-       
+VALUES 
+				-- Semester 1--
+		(1, 1, 1, "Internetbasierte Anwendungen"),
+        (1, 1, 1, "Grundlagen OO-Programmiersprachen"),
+        (1, 1, 1, "Datenbankgrundlagen"),
+        (1, 1, 1, "Mathematik für Informatiker 1"),
+        (1, 1, 1, "Grundlagen betriebswirtschaftlicher Entscheidungstatbestände"),
+        (1, 1, 1, "Arbeits-, Lern- und Präsentationstechnik 1"),
+        (1, 1, 1, "Englisch 1"),
+        
+        		-- Semester 2--
+		(1, 1, 2, "Algorithmen und Datenstrukturen"),
+        (1, 1, 2, "Fortgeschrittene Konzepte Java"),
+        (1, 1, 2, "Rechnerstrukturen"),
+        (1, 1, 2, "Mathematik für Informatiker 2"),
+        (1, 1, 2, "Grundlagen der Unternehmensführung"),
+        (1, 0, 2, "Arbeits-, Lern- und Präsentationstechnik 2"),
+        (1, 0, 2, "Englisch 2"),
+        
+				-- Semester 3--
+		(1, 1, 3, "Web-Engineering"),
+        (1, 1, 3, "OO-Software-Modellierung"),
+        (1, 1, 3, "Rechnernetze"),
+        (1, 1, 3, "Betriebssysteme"),
+        (1, 0, 3, "Entwicklung verteilter Anwendungen"),
+        (1, 0, 3, "Datenbankmodelle und Datenbankentwurf"),
+        
+				-- Semester 4--
+		(1, 0, 4, "Componentware"),
+        (1, 1, 4, "Software-Architektur und -Design"),
+        (1, 0, 4, "Standardsoftware"),
+        (1, 0, 4, "Mobile Systeme"),
+        (1, 0, 4, "Vernetzung eingebetteter Systeme"),
+        (1, 0, 4, "Datenbankintegrität & aktive DB-Systeme"),
+        (1, 0, 4, "Einsatz von In-Memory Datenbanken"),
+        
+				-- Semester 5--
+		(0, 1, 5, "IT-Sicherheit"),
+        (0, 0, 5, "Mensch-Computer-Interaktion"),
+        (0, 0, 5, "Software-Management und Prozesse"),
+        (0, 1, 5, "IT-Kostenplanung"),
+        (0, 0, 5, "Aspekte des DV-Rechts"),
+        (0, 0, 5, "Neue Arbeits- und Organisationsformen"),
+        (0, 0, 5, "Projektmanagement"),
+        
+				-- Semester 6--
+		(0, 0, 6, "Ausgewählte Aspekte der Programmiertechnik"),
+        (0, 0, 6, "Moderne Programmierkonzepte"),
+        (0, 1, 6, "Automaten und formale Sprachen"),
+        (0, 1, 6, "Statistik, Stochastik"),
+        (0, 0, 6, "Interaktive Medien"),
+        (0, 0, 6, "Software-Integration, -Test und -Wartung");
+               
 INSERT INTO D_Jahrgang (jahrgang) 
 VALUES ("23"),
        ("24"),

@@ -8,7 +8,7 @@
         <option name="gradleHome" value="$PROJECT_DIR$/../../../Gradle/gradle-8.4" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
+            <option value="$USER_HOME$/Studium/Semester3/Db/db_WS23_24/JDBC/Stundenplan" />
           </set>
         </option>
       </GradleProjectSettings>
