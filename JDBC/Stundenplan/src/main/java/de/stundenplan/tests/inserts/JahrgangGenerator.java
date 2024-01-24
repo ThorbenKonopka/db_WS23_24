@@ -17,8 +17,8 @@ public class JahrgangGenerator extends Testcase{
     @Override
     public void test() throws SQLException {
         Connection con = ConnectionPool.getConnectionPool().getRootConnection();
-        int jahre = 6;
-        int startjahr = 2019;
+        int jahre = 50;
+        int startjahr = 2025;
 
         for (int i = 0; i < jahre; i++) {
             int jahrgang = startjahr + i;

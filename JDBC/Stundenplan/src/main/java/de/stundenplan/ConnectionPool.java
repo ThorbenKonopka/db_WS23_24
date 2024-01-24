@@ -166,7 +166,7 @@ public class ConnectionPool {
         }
     }
 
-    public static ConnectionPool getConnectionPool() {
+    public static synchronized ConnectionPool getConnectionPool() {
         if(connectionPool == null) {
             connectionPool = new ConnectionPool();
         }

@@ -21,27 +21,24 @@ public class VertretenderDozentGenerator extends Testcase {
         int anzahlVertretungen = 20;
         Random random = new Random();
 
-        try {
-            int maxDozentId = 4;
-            int maxTerminId = 1000;
 
-            for (int i = 0; i < anzahlVertretungen; i++) {
-                int zufaelligerDozent = 1 + random.nextInt(maxDozentId);
-                int zufaelligerTermin = 1 + random.nextInt(maxTerminId);
+        int maxDozentId = 4;
+        int maxTerminId = 1000;
 
-                String sql = "INSERT INTO vertretenderDozent (dozentId, terminId) VALUES (?, ?)";
-                PreparedStatement statement = con.prepareStatement(sql);
+        for (int i = 0; i < anzahlVertretungen; i++) {
+            int zufaelligerDozent = 1 + random.nextInt(maxDozentId);
+            int zufaelligerTermin = 1 + random.nextInt(maxTerminId);
+
+            String sql = "INSERT INTO vertretenderDozent (dozentId, terminId) VALUES (?, ?)";
+            try(PreparedStatement statement = con.prepareStatement(sql)) {
 
                 statement.setInt(1, zufaelligerDozent);
                 statement.setInt(2, zufaelligerTermin);
 
                 statement.executeUpdate();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            System.out.println("vertretenderDozent befüllt");
         }
+
     }
 }
 
