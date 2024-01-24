@@ -4,7 +4,7 @@ DELIMITER $$
 USE `Stundenplan`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `Stundenplan`.`VERTETENDERDOZENT_AFTER_INSERT` AFTER INSERT ON `vertretenderDozent` FOR EACH ROW
 BEGIN
-	CALL trageVertretungEin(NEW.terminId, NEW.dozentId);
+	CALL erstelleHistorieneintrag(NEW.terminId, 'Vertretung');
 END$$
 DELIMITER ;
 

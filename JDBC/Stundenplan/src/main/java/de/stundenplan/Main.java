@@ -4,7 +4,6 @@ import de.stundenplan.tests.Testcase;
 import de.stundenplan.tests.inserts.*;
 import de.stundenplan.tests.testcases.*;
 
-import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class Main {
         inserts.add(new StudentGenerator());
         inserts.add(new TerminGenerator());
         inserts.add(new Termin2GruppeGenerator());
-        inserts.add(new vertretenderDozentGenerator());
+        inserts.add(new VertretenderDozentGenerator());
 
         inserts.forEach(Testcase::executeTest);
 

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 // testet gleichzeitig den HistorieTrigger mit, aber nur für "Vertretung"
-public class vertretenderDozentGenerator extends Testcase {
+public class VertretenderDozentGenerator extends Testcase {
     @Override
     public String getName() {
         return "vertretenderDozentGenerator";
