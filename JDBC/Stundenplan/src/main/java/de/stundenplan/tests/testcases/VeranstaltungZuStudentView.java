@@ -18,7 +18,7 @@ public class VeranstaltungZuStudentView extends Testcase {
     public void test() throws SQLException {
         Connection connection = ConnectionPool.getConnectionPool().getVerwalterConnection();
         try (Statement statement = connection.createStatement()) {
-            Table table = new Table(statement.executeQuery("SELECT * FROM verwaltungView;"));
+            Table table = new Table(statement.executeQuery("SELECT SQL_NO_CACHE * FROM verwaltungView;"));
             //table.print(7);
         }
     }

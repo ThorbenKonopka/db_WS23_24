@@ -91,11 +91,11 @@ VALUES ("23"),
        ("22");
 
 INSERT INTO Student (matrikelnummer, name, vorname, jahrgang, gruppe) 
-VALUES (1, "Blauschuh", "Bubi", "23", "A-F"),
-       (2, "Kleeblatt", "Katrin", "25", "G-L"),
-       (3, "Griesgram", "Grummel", "24", "G-L"),
-       (4, "Königsmann", "Thomas", "23", "A-F"),
-       (5, "Konopka", "Nils Thorben", "22", "G-L");
+VALUES (123456, "Blauschuh", "Bubi", "23", "A-F"),
+       (234567, "Kleeblatt", "Katrin", "25", "G-L"),
+       (345678, "Griesgram", "Grummel", "24", "G-L"),
+       (456789, "Königsmann", "Thomas", "23", "A-F"),
+       (314159, "Konopka", "Nils Thorben", "22", "G-L");
 
 INSERT INTO Veranstaltung (dozentId, typ, semester, modulId, jahrgang) 
 VALUES (1, "Vorlesungen", "WS2023/2024", 1, "23"),

@@ -18,8 +18,8 @@ public class VeranstaltungGenerator extends Testcase {
     public void test() throws SQLException {
         Connection con = ConnectionPool.getConnectionPool().getRootConnection();
         Random random = new Random();
-        int startjahr = 2019;
-        int jahre = 6;
+        int startjahr = 2025;
+        int jahre = 50;
         for (int i = 0; i < jahre; i++) {
             int year = startjahr + i;
             String[] semesters = {"WS" + year + "/" + (year + 1), "SS" + (year + 1)};

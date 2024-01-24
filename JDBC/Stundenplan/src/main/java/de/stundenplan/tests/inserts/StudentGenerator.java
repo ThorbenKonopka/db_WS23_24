@@ -17,8 +17,8 @@ public class StudentGenerator extends Testcase {
     @Override
     public void test() throws SQLException {
         Connection  con = ConnectionPool.getConnectionPool().getRootConnection();
-        int startjahr = 2019;
-        int jahre = 6;
+        int startjahr = 2025;
+        int jahre = 50;
         int matrikelnummer = 6;
 
         for (int i = 0; i < jahre; i++) {

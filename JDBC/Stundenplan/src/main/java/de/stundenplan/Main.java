@@ -18,17 +18,20 @@ public class Main {
 
         ConnectionPool.init();
 
+        long before = System.currentTimeMillis();
+
         List<Testcase> inserts = new ArrayList<>();
-        inserts.add(new Insert1());
         inserts.add(new JahrgangGenerator());
         inserts.add(new SemesterGenerator());
         inserts.add(new VeranstaltungGenerator());
         inserts.add(new StudentGenerator());
         inserts.add(new TerminGenerator());
         inserts.add(new Termin2GruppeGenerator());
-        inserts.add(new VertretenderDozentGenerator());
+        //inserts.add(new VertretenderDozentGenerator());
 
         inserts.forEach(Testcase::executeTest);
+
+        long after = System.currentTimeMillis();
 
 
         List<Testcase> testcases = new ArrayList<>();
@@ -38,11 +41,15 @@ public class Main {
         testcases.add(new DeleteStudentsEinzelnTest());
         testcases.add(new DeleteStudentsZusammenTest());
 
-        testcases.add(new VeranstaltungZuStudentJoin());
         testcases.add(new VeranstaltungZuStudentView());
+        testcases.add(new VeranstaltungZuStudentJoin());
+
+        testcases.add(new HistorieTest());
 
         testcases.forEach(Testcase::executeTest);
 
         ConnectionPool.destroy();
+
+        System.out.println("Die Inserts haben: " + (after-before) + " ms gebraucht-");
     }
 }

@@ -44,6 +44,7 @@ public class DeleteStudentsZusammenTest extends Testcase {
         }
     }
 
+    @Override
     public void init() {
         Connection connection = ConnectionPool.getConnectionPool().getRootConnection();
         StringBuilder sb = new StringBuilder("INSERT INTO Student (matrikelnummer, name, vorname, jahrgang, gruppe) \n");

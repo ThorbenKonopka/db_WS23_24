@@ -20,9 +20,8 @@ public class Termin2GruppeGenerator extends Testcase {
         Connection con = ConnectionPool.getConnectionPool().getRootConnection();
         Random random = new Random();
 
-        try {
-            String terminModulSql = "SELECT t.terminId FROM Termin t JOIN Veranstaltung v ON t.veranstaltungId = v.veranstaltungId JOIN Modul m ON v.modulId = m.modulId WHERE m.pflichtveranstaltung = 1";
-            PreparedStatement terminModulStmt = con.prepareStatement(terminModulSql);
+        String terminModulSql = "SELECT t.terminId FROM Termin t JOIN Veranstaltung v ON t.veranstaltungId = v.veranstaltungId JOIN Modul m ON v.modulId = m.modulId WHERE m.pflichtveranstaltung = 1";
+        try (PreparedStatement terminModulStmt = con.prepareStatement(terminModulSql)) {
             ResultSet terminModulRs = terminModulStmt.executeQuery();
 
             while (terminModulRs.next()) {
@@ -32,17 +31,18 @@ public class Termin2GruppeGenerator extends Testcase {
                 String gruppe = gruppen[random.nextInt(gruppen.length)];
 
                 String termin2GruppeSql = "INSERT INTO Termin2Gruppe (terminId, gruppe) VALUES (?, ?)";
-                PreparedStatement termin2GruppeStmt = con.prepareStatement(termin2GruppeSql);
+                try(PreparedStatement termin2GruppeStmt = con.prepareStatement(termin2GruppeSql)) {
 
-                termin2GruppeStmt.setInt(1, terminId);
-                termin2GruppeStmt.setString(2, gruppe);
-
-                termin2GruppeStmt.executeUpdate();
+                    termin2GruppeStmt.setInt(1, terminId);
+                    termin2GruppeStmt.setString(2, gruppe);
+                    try {
+                        termin2GruppeStmt.executeUpdate();
+                    } catch (SQLException e) {
+                        System.out.println("DOPPELT: " + terminId + " UND " + gruppe);
+                    }
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            System.out.println("Termin2Gruppe befüllt");
         }
+
     }
 }

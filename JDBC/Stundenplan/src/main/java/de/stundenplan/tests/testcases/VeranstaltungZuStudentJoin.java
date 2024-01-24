@@ -19,7 +19,7 @@ public class VeranstaltungZuStudentJoin extends Testcase {
     public void test() throws SQLException {
         Connection connection = ConnectionPool.getConnectionPool().getRootConnection();
         try (Statement statement = connection.createStatement()) {
-            Table table = new Table(statement.executeQuery("SELECT student.name, student.vorname, student.matrikelnummer, student.jahrgang, student.gruppe, modul.name, veranstaltung.typ FROM Student student " +
+            Table table = new Table(statement.executeQuery("SELECT SQL_NO_CACHE student.name, student.vorname, student.matrikelnummer, student.jahrgang, student.gruppe, modul.name, veranstaltung.typ FROM Student student " +
                                     "LEFT JOIN BelegteVeranstaltung bv ON bv.matrikelnummer = student.matrikelnummer "+
                                     "LEFT JOIN Veranstaltung veranstaltung ON veranstaltung.veranstaltungid = bv.veranstaltungid " +
                                     "LEFT JOIN Modul modul ON modul.modulId = veranstaltung.modulId;"));
