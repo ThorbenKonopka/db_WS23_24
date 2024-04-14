@@ -27,9 +27,8 @@ public class Main {
         inserts.add(new StudentGenerator());
         inserts.add(new TerminGenerator());
         inserts.add(new Termin2GruppeGenerator());
-        //inserts.add(new VertretenderDozentGenerator());
 
-        inserts.forEach(Testcase::executeTest);
+        //inserts.forEach(Testcase::executeTest);
 
         long after = System.currentTimeMillis();
 
@@ -50,6 +49,6 @@ public class Main {
 
         ConnectionPool.destroy();
 
-        System.out.println("Die Inserts haben: " + (after-before) + " ms gebraucht-");
+        System.out.println("Die Inserts haben: " + (after-before) + " ms gebraucht");
     }
 }
